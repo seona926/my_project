@@ -1,0 +1,8 @@
+API key : AIzaSyDc5NAs-VC0YfNdgcLrcw1Hyy3da2nsdio
+
+검색엔진 ID : 342c1f5c9e3246aad
+
+GET https://www.googleapis.com/customsearch/v1?key=API키값&cx=검색엔진ID&q=검색어
+
+세계경제 API
+http://apis.data.go.kr/1262000/CountryEconomyService/getCountryEconomyList?serviceK[…]t8MjXN5U6t9CZM9ye49xbqQavrS%2FkbiYg%3D%3D&page=1&perPage=1000

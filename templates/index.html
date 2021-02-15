@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>먼 나라 이웃 나라</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nanum+Gothic:wght@400;800&display=swap"
+          rel="stylesheet">
+    <script src="https://kit.fontawesome.com/fe8f33ede2.js" crossorigin="anonymous"></script>
+
+    <style>
+        section {
+            height: 600px;
+            border-radius: 10px;
+            backgroud-color: #ccf5ff;
+            padding-top: 20px;
+        }
+
+        @import url(https://fonts.googleapis.com/css?family=Varela+Round);
+        html, body {
+            background: white;
+        }
+
+        #result-btn {
+            font-size: 15px;
+            display: inline;
+        }
+
+        .slides {
+            padding: 0;
+            width: 609px;
+            height: 420px;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .slides * {
+            user-select: none;
+            -ms-user-select: none;
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        .slides input {
+            display: none;
+        }
+
+        .slide-container {
+            display: block;
+        }
+
+        .slide {
+            top: 0;
+            opacity: 0;
+            width: 609px;
+            height: 420px;
+            display: block;
+            position: absolute;
+
+            transform: scale(0);
+
+            transition: all .7s ease-in-out;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .nav label {
+            width: 200px;
+            height: 100%;
+            display: none;
+            position: absolute;
+
+            opacity: 0;
+            z-index: 9;
+            cursor: pointer;
+
+            transition: opacity .2s;
+
+            color: #FFF;
+            font-size: 156pt;
+            text-align: center;
+            line-height: 380px;
+            font-family: "Varela Round", sans-serif;
+            background-color: rgba(255, 255, 255, .3);
+            text-shadow: 0px 0px 15px rgb(119, 119, 119);
+        }
+
+        .slide:hover + .nav label {
+            opacity: 0.5;
+        }
+
+        .nav label:hover {
+            opacity: 1;
+        }
+
+        .nav .next {
+            right: 0;
+        }
+
+        input:checked + .slide-container .slide {
+            opacity: 1;
+
+            transform: scale(1);
+
+            transition: opacity 1s ease-in-out;
+        }
+
+        input:checked + .slide-container .nav label {
+            display: block;
+        }
+
+        .nav-dots {
+            width: 100%;
+            bottom: 9px;
+            height: 11px;
+            display: block;
+            position: absolute;
+            text-align: center;
+        }
+
+        .nav-dots .nav-dot {
+            top: -5px;
+            width: 11px;
+            height: 11px;
+            margin: 0 4px;
+            position: relative;
+            border-radius: 100%;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .nav-dots .nav-dot:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        input#img-1:checked ~ .nav-dots label#img-dot-1,
+        input#img-2:checked ~ .nav-dots label#img-dot-2,
+        input#img-3:checked ~ .nav-dots label#img-dot-3,
+        input#img-4:checked ~ .nav-dots label#img-dot-4,
+        input#img-5:checked ~ .nav-dots label#img-dot-5,
+        input#img-6:checked ~ .nav-dots label#img-dot-6 {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        table {
+            border: 0px;
+            width: 110%;
+            margin: auto;
+            font-family: 'Montserrat', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .table-container {
+            width: 900px;
+            margin: auto;
+        }
+
+        #country-name {
+            margin: 15px;
+            width: 500px;
+            font-size: 50px;
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        i {
+            font-size: 50px;
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .select-country-container {
+            width: 800px;
+            font-size: 25px;
+            font-weight: bold;
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        #select-country {
+            width: 300px; /* 원하는 너비설정 */
+            height: 35px;
+            font-size: 19px;
+            font-family: inherit; /* 폰트 상속 */
+            border: 1px solid #999;
+            border-radius: 5px; /* iOS 둥근모서리 제거 */
+        }
+
+        #main-content-table {
+            width: 1000px;
+        }
+
+        select.decorated option:hover {
+            box-shadow: 0 0 10px 100px #1882A8 inset;
+        }
+
+        #select-country::-ms-expand {
+            /* for IE 11 */
+            display: none;
+        }
+
+        .flags {
+            display: inline-block;
+            border: black solid 1px;
+            margin: 20px;
+        }
+
+        footer {
+            width: 100%;
+            height: 100%;
+            margin: 20px;
+            border-radius: 10px;
+            font-size: 25px;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .slides {
+            align-content: center;
+            justify-content: center;
+        }
+    </style>
+
+    <script>
+        $.ajax({
+            type: "GET",
+            url: "http://apis.data.go.kr/1262000/CountryEconomyService/getCountryEconomyList?serviceKey=KhrU%2FfLyRRgMLnqPo59SUirw31QTmwRQXUPm2o2e5zyYcMo4%2BN1itt8MjXN5U6t9CZM9ye49xbqQavrS%2FkbiYg%3D%3D&page=1&perPage=1000",
+            data: {},
+            success: function (response) {
+                let world = response["data"];
+                for (let i = world.length - 1; i >= 0; i--) {
+                    let eachCountry = world[i];
+                    let countryName = eachCountry["country_nm"];
+                    let tempHtml = `<option>${countryName}</option>`;
+                    $('#select-country').append(tempHtml);
+                }
+            }
+        })
+
+        function showResult() {
+            $.ajax({
+                type: "GET",
+                url: "http://apis.data.go.kr/1262000/CountryEconomyService/getCountryEconomyList?serviceKey=KhrU%2FfLyRRgMLnqPo59SUirw31QTmwRQXUPm2o2e5zyYcMo4%2BN1itt8MjXN5U6t9CZM9ye49xbqQavrS%2FkbiYg%3D%3D&page=1&perPage=1000",
+                data: {},
+                success: function (response) {
+                    let world = response["data"];
+                    // 본문에 나라이름과 정보를 넣는 함수
+                    for (let i = world.length - 1; i >= 0; i--) {
+                        let eachCountry = world[i];
+                        let countryName = eachCountry["country_nm"];
+                        let alp2 = eachCountry["iso_alp2"]
+                        let gdp = eachCountry["gdp"];
+                        let mainResource = eachCountry["main_resource_cn"];
+                        let mainIndustry = eachCountry["main_indust_cn"];
+                        if (countryName === $('#select-country').val()) {
+                            document.getElementById("country-name").value = '';
+                            $('#country-name').html(alp2 + ' ');
+                            $('#country-name').append(countryName);
+                            $('#gdp').text('USD ' + gdp);
+                            $('#main-resource').text(mainResource);
+                            $('#main-industry').text(mainIndustry);
+                        }
+                    }
+                }
+            })
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyDc5NAs-VC0YfNdgcLrcw1Hyy3da2nsdio&cx=342c1f5c9e3246aad&q=검색어",
+            data: {},
+            success: function (response) {
+                console.log(response);
+            }
+        })
+
+
+    </script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">the World</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">API info</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More...
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<section>
+
+
+    <div class="select-country-container">
+        &nbsp;&nbsp;국가 선택<br>
+        &nbsp;&nbsp;<select id="select-country">
+        <option selected>국가를 선택하세요</option>
+    </select>
+        <button type="button" class="btn btn-info" id="result-btn" onclick="showResult();">확인</button>
+    </div>
+
+    <br><br>
+    <hr>
+    <br><br>
+    <div class="table-container">
+        <table id="main-content-table">
+            <tr>
+                <td valign="top">
+                    <div>
+                        <i class="fas fa-globe-americas"></i><span id="country-name">KR대한민국</span>
+                    </div>
+                </td>
+                <td rowspan="2" valign="center">
+                    <div class="flags" id="flag">
+                        <img src="https://flagcdn.com/w320/kr.png"
+                             srcset="https://flagcdn.com/w640/kr.png 2x"
+                             width="320"
+                             alt="South Korea">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <th scope="row">GDP</th>
+                            <td id="gdp">USD 1,646,739,219,509</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">주요 자원</th>
+                            <td id="main-resource"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">주요 산업</th>
+                            <td id="main-industry"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+<hr>
+<footer>
+    주요도시 사진<br><br>
+<ul class="slides">
+        <input type="radio" name="radio-btn" id="img-1" checked/>
+        <li class="slide-container">
+            <div class="slide">
+                <img src="//t1.daumcdn.net/brunch/service/user/bra/image/aJ93GlCnzd_nPtfeK8yaEaYF7hU.jpg"/>
+            </div>
+            <div class="nav">
+                <label for="img-6" class="prev">&#x2039;</label>
+                <label for="img-2" class="next">&#x203a;</label>
+            </div>
+        </li>
+
+        <input type="radio" name="radio-btn" id="img-2"/>
+        <li class="slide-container">
+            <div class="slide">
+                <img src="//t1.daumcdn.net/brunch/service/user/bra/image/TGxyfuCh3Oe4fsTeUc_tdwPWg6U.jpg"/>
+            </div>
+            <div class="nav">
+                <label for="img-1" class="prev">&#x2039;</label>
+                <label for="img-3" class="next">&#x203a;</label>
+            </div>
+        </li>
+
+        <input type="radio" name="radio-btn" id="img-3"/>
+        <li class="slide-container">
+            <div class="slide">
+                <img src="//t1.daumcdn.net/brunch/service/user/bra/image/FaWig3b65XA_8IyHiitvc3ZrXhk.png"/>
+            </div>
+            <div class="nav">
+                <label for="img-2" class="prev">&#x2039;</label>
+                <label for="img-4" class="next">&#x203a;</label>
+            </div>
+        </li>
+
+        <input type="radio" name="radio-btn" id="img-4"/>
+        <li class="slide-container">
+            <div class="slide">
+                <img src="//t1.daumcdn.net/brunch/service/user/bra/image/nhy5-1h4qaSHJ9LL-Tavert-QFw.jpg"/>
+            </div>
+            <div class="nav">
+                <label for="img-3" class="prev">&#x2039;</label>
+                <label for="img-5" class="next">&#x203a;</label>
+            </div>
+        </li>
+
+        <input type="radio" name="radio-btn" id="img-5"/>
+        <li class="slide-container">
+            <div class="slide">
+                <img src="//t1.daumcdn.net/brunch/service/user/bra/image/9xhnZYzwXp3B-GJUCN7oU92lyfk.png"/>
+            </div>
+            <div class="nav">
+                <label for="img-4" class="prev">&#x2039;</label>
+                <label for="img-6" class="next">&#x203a;</label>
+            </div>
+        </li>
+
+        <input type="radio" name="radio-btn" id="img-6"/>
+        <li class="slide-container">
+            <div class="slide">
+                <img src="http://love.seoul.go.kr/Pds/Board/seoul_news_write/Editor/article_202001_01_1200_1.jpg"/>
+            </div>
+            <div class="nav">
+                <label for="img-5" class="prev">&#x2039;</label>
+                <label for="img-1" class="next">&#x203a;</label>
+            </div>
+        </li>
+
+        <li class="nav-dots">
+            <label for="img-1" class="nav-dot" id="img-dot-1"></label>
+            <label for="img-2" class="nav-dot" id="img-dot-2"></label>
+            <label for="img-3" class="nav-dot" id="img-dot-3"></label>
+            <label for="img-4" class="nav-dot" id="img-dot-4"></label>
+            <label for="img-5" class="nav-dot" id="img-dot-5"></label>
+            <label for="img-6" class="nav-dot" id="img-dot-6"></label>
+        </li>
+    </ul>
+
+</footer>
+</body>
+
+
+</html>
