@@ -1,4 +1,5 @@
 API key : AIzaSyDc5NAs-VC0YfNdgcLrcw1Hyy3da2nsdio
+Google map API : AIzaSyDPAY252Q2J_x91vFIlBTbgp3YRlNpdSa8
 
 검색엔진 ID : 342c1f5c9e3246aad
 
@@ -6,3 +7,7 @@ GET https://www.googleapis.com/customsearch/v1?key=API키값&cx=검색엔진ID&q
 
 세계경제 API
 http://apis.data.go.kr/1262000/CountryEconomyService/getCountryEconomyList?serviceK[…]t8MjXN5U6t9CZM9ye49xbqQavrS%2FkbiYg%3D%3D&page=1&perPage=1000
+
+세계 위도 경도 API
+https://gist.githubusercontent.com/erdem/8c7d26765831d0f9a8c62f02782ae00d/raw/248037cd701af0a4957cce340dabb0fd04e38f4c/countries.json
+
