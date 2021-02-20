@@ -14,9 +14,9 @@ def home():
 ## API 역할을 하는 부분
 @app.route('/country', methods=['GET'])
 def flag_get():
-    country_receive = request.args.get['country_give']
-    result = list(db.flags.find({'countryName': country_receive}, {'_id': 0}))
-    return jsonify({'result': 'success', 'msg': '이 요청은 GET!'})
+    country_receive = request.args.get('country_give')
+    result = list(db.flags.find({'countryName': country_receive}, {'_id': False}))
+    return jsonify({'result': 'success', 'flags_list': result})
 
 
 if __name__ == '__main__':

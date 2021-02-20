@@ -256,7 +256,7 @@
         }
 
         #map {
-            height: 700px;
+            height: 600px;
             width: 100%
         }
     </style>
@@ -304,11 +304,12 @@
                             $.ajax({
                                 type: "GET",
                                 url: "/country",
-                                data: {'country_give': countryName},
+                                data: {},
                                 success: function (response) {
                                     if (response["result"] == "success") {
-                                        let flags = response['flags_list'];
+                                        let flags = response['flags_list'][0];
                                         console.log(flags);
+                                        $("#flag").attr("src",flags);
                                     }
 
                                 }
