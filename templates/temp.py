@@ -7,20 +7,49 @@ db = client.flags
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+# 나라이름 리스트 넣어주기
+countries = ["가나", "가봉", "가이아나", "감비아", "건지", "경제협력개발기구", "과들루프", "과테말라", "괌", "교황청", "국제연합",
+           "그레나다", "그리스", "그린란드", "기니", "기니비사우", "나미비아", "나우루", "나이지리아", "남수단", "남아프리카공화국",
+           "네덜란드", "네덜란드령 안틸레스", "네팔", "노르웨이", "뉴 칼레도니아", "뉴질랜드", "니우에", "니제르", "니카라과",
+           "대한민국", "덴마크", "도미니카공화국", "도미니카연방", "독일", "동티모르", "라오스", "라이베리아", "라트비아", "러시아",
+           "레바논", "레소토", "레위니옹", "루마니아", "룩셈부르크", "르완다", "리비아", "리투아니아", "리히텐슈타인", "마다가스카르",
+           "마르티니크", "마셜제도", "마요트", "마이크로네시아연방", "마카오", "말라위", "말레이시아", "말리", "맨 섬", "멕시코",
+           "모나코", "모로코", "모리셔스", "모리타니아", "모잠비크", "몬테네그로", "몬트세랫", "몰도바", "몰디브", "몰타", "몽골",
+           "미국", "미얀마", "바누아투", "바레인", "바베이도스", "바하마", "방글라데시", "버뮤다", "베냉", "베네수엘라", "베트남",
+           "벨기에", "벨라루스", "벨리즈", "보스니아헤르체고비나", "보츠와나", "볼리비아", "부룬디", "부르키나파소", "부탄",
+           "북마리아나 군도", "북마케도니아", "불가리아", "브라질", "브루나이", "사모아", "사우디아라비아", "사이프러스",
+           "사하라 아랍민주공화국(서부사하라)","산마리노", "상투메프린시페", "세네갈", "세르비아", "세이셸", "세인트 루시아",
+           "세인트 빈센트 그레나딘", "세인트 키츠 네비스", "세인트 헬레나 섬", "소말리아", "솔로몬제도", "수단", "수리남", "스리랑카",
+           "스웨덴", "스위스", "스페인", "슬로바키아", "슬로베니아", "시리아", "시에라리온", "싱가포르", "아랍에미리트", "아루바",
+           "아르메니아", "아르헨티나", "아세안", "아이슬란드", "아이티", "아일랜드", "아제르바이잔", "아프가니스탄", "안도라", "알바니아",
+           "알제리", "앙골라", "앤티가바부다", "앵귈라", "에리트레아", "에스와티니", "에스토니아", "에콰도르", "에티오피아", "엘살바도르",
+           "영국", "영국령 남극지역", "영국령 버진 아일랜드", "영국령 인도양 제도", "예멘", "오만", "오스트리아", "온두라스",
+           "왈리스·퓌튀나", "요르단", "우간다", "우루과이", "우즈베키스탄", "우크라이나", "유네스코", "유럽연합", "이라크", "이란",
+           "이스라엘", "이슬람 국가", "이집트", "이탈리아", "인도", "인도네시아", "일본", "자메이카", "잠비아", "저지", "적도기니",
+           "조지아", "중국", "중앙아프리카공화국", "지부티", "지브롤터", "짐바브웨", "차드", "체코", "칠레", "카메룬", "카보베르데",
+           "카자흐스탄", "카타르", "캄보디아", "캐나다", "케냐", "케이맨제도", "코모로", "코소보", "코스타리카", "코트디부아르",
+           "콜롬비아", "콩고공화국", "콩고민주공화국(DR콩고)", "쿠바", "쿠웨이트" "쿡제도", "크로아티아", "키르기즈", "키리바시",
+           "타이완", "타지키스탄", "탄자니아", "태국", "터크스·케이커스 제도", "터키", "토고", "통가", "투르크메니스탄", "투발루",
+           "튀니지", "트리니다드토바고", "파나마", "파라과이", "파키스탄", "파푸아뉴기니", "팔라우", "팔레스타인", "페루", "포르투갈",
+           "폴란드", "푸에르토리코", "프랑스", "프랑스령 기아나", "프랑스령 폴리네시아", "피지", "핀란드", "필리핀", "핏케언 섬",
+           "헝가리", "호주", "홍콩"]
 
-wiki_data = requests.get('https://ko.wikipedia.org/wiki/홍콩', headers=headers)
-wiki_soup = BeautifulSoup(wiki_data.text, 'html.parser')
 
-flag = wiki_soup.select_one(
-    '#mw-content-text > div.mw-parser-output > table.infobox.geography.vcard > tbody > tr.mergedtoprow > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > a > img')
-flag_src = flag.get("src")
-print(flag_src)
+# country를 for문 돌리기
+for country in range(len(countries)):
+    wiki_data = requests.get('https://ko.wikipedia.org/wiki/' + countries[country], headers=headers)
+    wiki_soup = BeautifulSoup(wiki_data.text, 'html.parser')
+    flag = wiki_soup.select_one(
+        '#mw-content-text > div.mw-parser-output > table.infobox.geography.vcard > tbody > tr.mergedtoprow > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > a > img')
+    if flag == None:
+        flag_src = "https://e7.pngegg.com/pngimages/974/569/png-clipart-graphics-world-map-illustration-world-map-miscellaneous-blue.png"
+    else:
+        flag_src = flag.get("src")
+        countryName = wiki_soup.select_one("#firstHeading").text
 
-countryName = wiki_soup.select_one("#firstHeading").text
-print(countryName)
-
-doc = {
-    'countryName': countryName,
-    'src': flag_src
-}
-db.flags.insert_one(doc)
+        # 프로젝트 잘 완성되면 DB에 위도, 경도도 저장해서 실행시켜보기
+        doc = {
+            'countryName': countryName,
+            'src': flag_src
+        }
+        db.flags.insert_one(doc)

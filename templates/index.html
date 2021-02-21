@@ -269,12 +269,16 @@
             data: {},
             success: function (response) {
                 let world = response["data"];
+                let listCountry = [];
                 for (let i = world.length - 1; i >= 0; i--) {
                     let eachCountry = world[i];
                     let countryName = eachCountry["country_nm"];
                     let tempHtml = `<option>${countryName}</option>`;
+                    listCountry.push(countryName);
+
                     $('#select-country').append(tempHtml);
                 }
+                console.log(listCountry);
             }
         })
 
@@ -304,12 +308,12 @@
                             $.ajax({
                                 type: "GET",
                                 url: "/country",
-                                data: {},
+                                data: {"country_give" : countryName},
                                 success: function (response) {
                                     if (response["result"] == "success") {
-                                        let flags = response['flags_list'][0];
+                                        let flags = response['flags_list'][0]['src'];
                                         console.log(flags);
-                                        $("#flag").attr("src",flags);
+                                        $("#flag>img").attr("src","http:" + flags);
                                     }
 
                                 }
@@ -393,7 +397,7 @@
             <tr>
                 <td valign="top">
                     <div>
-                        <i class="fas fa-globe-americas"></i><span id="country-name">KR대한민국</span>
+                        <i class="fas fa-globe-americas"></i><span id="country-name">KR 대한민국</span>
                     </div>
                 </td>
                 <td rowspan="2" valign="center">
