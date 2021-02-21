@@ -313,12 +313,11 @@
                                 data: {"country_give": countryName},
                                 success: function (response) {
                                     if (response["result"] === "success") {
-                                        let flags = response['flags_list'];
+                                        let flags = response['flags_list'][0];
                                         if (typeof(flags) === undefined) {
-                                            flags = "//e7.pngegg.com/pngimages/974/569/png-clipart-graphics-world-map-illustration-world-map-miscellaneous-blue.png"
-                                            $("#flag>img").attr("src", "http:" + flags);
+                                            $("#flag>img").attr("src", "http://e7.pngegg.com/pngimages/974/569/png-clipart-graphics-world-map-illustration-world-map-miscellaneous-blue.png");
                                         } else {
-                                            let flag = flags[0]['src'];
+                                            let flag = flags['src'];
                                             $("#flag>img").attr("src", "http:" + flag);
                                         }
                                     }
