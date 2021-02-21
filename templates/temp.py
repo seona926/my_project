@@ -42,7 +42,14 @@ for country in range(len(countries)):
     flag = wiki_soup.select_one(
         '#mw-content-text > div.mw-parser-output > table.infobox.geography.vcard > tbody > tr.mergedtoprow > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > a > img')
     if flag == None:
-        flag_src = "https://e7.pngegg.com/pngimages/974/569/png-clipart-graphics-world-map-illustration-world-map-miscellaneous-blue.png"
+        flag_src = "//e7.pngegg.com/pngimages/974/569/png-clipart-graphics-world-map-illustration-world-map-miscellaneous-blue.png"
+        countryName = wiki_soup.select_one("#firstHeading").text
+
+        doc = {
+            'countryName': countryName,
+            'src': flag_src
+        }
+        db.flags.insert_one(doc)
     else:
         flag_src = flag.get("src")
         countryName = wiki_soup.select_one("#firstHeading").text
