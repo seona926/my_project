@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>먼 나라 이웃 나라</title>
+    <title>the World</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -262,25 +262,31 @@
     </style>
 
     <script>
-
-        $.ajax({
-            type: "GET",
-            url: "http://apis.data.go.kr/1262000/CountryEconomyService/getCountryEconomyList?serviceKey=KhrU%2FfLyRRgMLnqPo59SUirw31QTmwRQXUPm2o2e5zyYcMo4%2BN1itt8MjXN5U6t9CZM9ye49xbqQavrS%2FkbiYg%3D%3D&page=1&perPage=1000",
-            data: {},
-            success: function (response) {
-                let world = response["data"];
-                let listCountry = [];
-                for (let i = world.length - 1; i >= 0; i--) {
-                    let eachCountry = world[i];
-                    let countryName = eachCountry["country_nm"];
-                    let tempHtml = `<option>${countryName}</option>`;
-                    listCountry.push(countryName);
-
-                    $('#select-country').append(tempHtml);
-                }
-
-            }
+        $(document).ready(function () {
+            makeSelectBox();
+            initMap();
         })
+
+        function makeSelectBox() {
+            $.ajax({
+                type: "GET",
+                url: "http://apis.data.go.kr/1262000/CountryEconomyService/getCountryEconomyList?serviceKey=KhrU%2FfLyRRgMLnqPo59SUirw31QTmwRQXUPm2o2e5zyYcMo4%2BN1itt8MjXN5U6t9CZM9ye49xbqQavrS%2FkbiYg%3D%3D&page=1&perPage=1000",
+                data: {},
+                success: function (response) {
+                    let world = response["data"];
+                    let listCountry = [];
+                    for (let i = world.length - 1; i >= 0; i--) {
+                        let eachCountry = world[i];
+                        let countryName = eachCountry["country_nm"];
+                        let tempHtml = `<option>${countryName}</option>`;
+                        listCountry.push(countryName);
+
+                        $('#select-country').append(tempHtml);
+                    }
+
+                }
+            })
+        }
 
         function showResult() {
             $.ajax({
@@ -306,23 +312,7 @@
                             $('#main-industry').text(mainIndustry);
 
                             showMap(alp2);
-
-                            $.ajax({
-                                type: "GET",
-                                url: "/country",
-                                data: {"country_give": countryName},
-                                success: function (response) {
-                                    if (response["result"] === "success") {
-                                        let flags = response['flags_list'][0];
-                                        if (typeof(flags) === undefined) {
-                                            $("#flag>img").attr("src", "http://e7.pngegg.com/pngimages/974/569/png-clipart-graphics-world-map-illustration-world-map-miscellaneous-blue.png");
-                                        } else {
-                                            let flag = flags['src'];
-                                            $("#flag>img").attr("src", "http:" + flag);
-                                        }
-                                    }
-                                }
-                            })
+                            showFlag(countryName)
                         }
                     }
                 }
@@ -339,46 +329,63 @@
                             let countryCode = response[i]["country_code"];
                             if (alp2 === countryCode) {
                                 let latlng = response[i]["latlng"];
-                                initMap(latlng);
+                                initMap(latlng[0], latlng[1]);
                             }
                         }
                     }
                 })
+            }
 
-                function initMap(latlng) {
-                    // Map options
-                    let options = {
-                        zoom: 8,
-                        center: {lat: latlng[0], lng: latlng[1]}
+            function showFlag(countryName) {
+                $.ajax({
+                    type: "GET",
+                    url: "/country",
+                    data: {"country_give": countryName},
+                    success: function (response) {
+                        if (response["result"] === "success") {
+                            let flags = response['flags_list'][0];
+                            if (typeof (flags) === undefined) {
+                                $("#flag>img").attr("src", "http://e7.pngegg.com/pngimages/974/569/png-clipart-graphics-world-map-illustration-world-map-miscellaneous-blue.png");
+                            } else {
+                                let flag = flags['src'];
+                                $("#flag>img").attr("src", "http:" + flag);
+                            }
+                        }
                     }
-
-                    // New map
-                    let map = new google.maps.Map(document.getElementById('map'), options);
-
-                    // Array of markers
-                    let markers = [
-                        {coords: {lat: latlng[0], lng: latlng[1]}},
-                    ]
-
-                    // Loop through markers
-                    for (let i = 0; i < markers.length; i++) {
-                        // Add marker
-                        addMarker(markers[i]);
-                    }
-
-                    // Add Marker Function
-                    function addMarker(props) {
-                        let marker = new google.maps.Marker({
-                            position: props.coords,
-                            map: map
-                        });
-                    }
-                }
-
+                })
             }
         }
 
 
+        function initMap(lat = 37.5642135, lng = 127.0016985) {
+            // Map options
+            let options = {
+                zoom: 8,
+                center: {lat: lat, lng: lng}
+            }
+
+            // New map
+            let map = new google.maps.Map(document.getElementById('map'), options);
+
+            // Array of markers
+            let markers = [
+                {coords: {lat: lat, lng: lng}},
+            ]
+
+            // Loop through markers
+            for (let i = 0; i < markers.length; i++) {
+                // Add marker
+                addMarker(markers[i]);
+            }
+
+            // Add Marker Function
+            function addMarker(props) {
+                let marker = new google.maps.Marker({
+                    position: props.coords,
+                    map: map
+                });
+            }
+        }
     </script>
 
 
